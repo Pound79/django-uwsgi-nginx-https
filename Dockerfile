@@ -53,5 +53,5 @@ COPY . /code/
 # be installed in the code/app/ directory
 RUN django-admin.py startproject website /code/app/
 
-EXPOSE 80 443
+EXPOSE 8080
 CMD ["supervisord", "-n"]
