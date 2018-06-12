@@ -79,5 +79,5 @@ RUN django-admin.py startproject website /code/app/
 # this line do collectstatic and migrate
 RUN cd /code/app && /usr/bin/python3 manage.py collectstatic --no-input;/usr/bin/python3 manage.py migrate;
 
-EXPOSE 8080
+EXPOSE 80
 CMD ["supervisord", "-n"]
