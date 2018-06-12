@@ -6,7 +6,7 @@ services:
       - '80:80'
       - '443:443'
     environment:
-      DOMAINS: 'chatwalog.com -> http://dockerhost:8080'
+      DOMAINS: 'example.com -> http://dockerhost:8080'
       # STAGE: 'production'
     # volumes:
     #   - /data/ssl_certs:/var/lib/https-portal
