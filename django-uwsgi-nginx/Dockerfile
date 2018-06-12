@@ -74,10 +74,10 @@ ENV PYTHONPATH /usr/bin/python3
 
 # install django, normally you would remove this step because your project would already
 # be installed in the code/app/ directory
-RUN django-admin.py startproject website /code/app/
+#RUN django-admin.py startproject website /code/app/
 
 # this line do collectstatic and migrate
 RUN cd /code/app && /usr/bin/python3 manage.py collectstatic --no-input;/usr/bin/python3 manage.py migrate;
 
-EXPOSE 80
+EXPOSE 8080
 CMD ["supervisord", "-n"]
