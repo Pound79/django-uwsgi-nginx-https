@@ -22,21 +22,41 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
 	git \
+  vim \
 	python3 \
 	python3-dev \
 	python3-setuptools \
 	python3-pip \
 	nginx \
 	supervisor \
+  tzdata \
 	sqlite3 && \
 	pip3 install -U pip setuptools && \
    rm -rf /var/lib/apt/lists/*
+
+
+# timezone setting
+#RUN apt-get install tzdata
+ENV TZ=Asia/Tokyo
+
+# encode setting
+# set the locale
+RUN apt-get clean && apt-get update && apt-get install -y locales
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+#don't show error message
+ENV DEBCONF_NOWARNINGS yes
 
 # install uwsgi now because it takes a little while
 RUN pip3 install uwsgi
 
 # setup all the configfiles
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+
+
 COPY nginx-app.conf /etc/nginx/sites-available/default
 COPY supervisor-app.conf /etc/supervisor/conf.d/
 
@@ -49,9 +69,15 @@ RUN pip3 install -r /code/app/requirements.txt
 # add (the rest of) our code
 COPY . /code/
 
+
+ENV PYTHONPATH /usr/bin/python3
+
 # install django, normally you would remove this step because your project would already
 # be installed in the code/app/ directory
 RUN django-admin.py startproject website /code/app/
+
+# this line do collectstatic and migrate
+RUN cd /code/app && /usr/bin/python3 manage.py collectstatic --no-input;/usr/bin/python3 manage.py migrate;
 
 EXPOSE 8080
 CMD ["supervisord", "-n"]
