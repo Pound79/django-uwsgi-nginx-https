@@ -21,9 +21,15 @@ touched most files here.
 
 ### Build and run
 #### Build with python3
-* `docker build -t webapp .`
-* `docker run -d -p 8080:8080 webapp`
-* go to 127.0.0.1 to see if works
+* `git clone https://github.com/sleepless-se/django-uwsgi-nginx.git`
+* `docker-compose up`
+* go to 127.0.0.1:8080 and your domain to see if works
+
+### Build and run
+#### Build with python2
+* `git clone https://github.com/sleepless-se/django-uwsgi-nginx.git`
+* `docker-compose up`
+* go to 127.0.0.1:8080 and your domain to see if works
 
 ### How to insert your application
 

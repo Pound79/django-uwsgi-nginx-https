@@ -1,0 +1,17 @@
+version: '3'
+services:
+  https-portal:
+    image: steveltn/https-portal:1
+    ports:
+      - '80:80'
+      - '443:443'
+    environment:
+      DOMAINS: 'chatwalog.com -> http://dockerhost:8080'
+      # STAGE: 'production'
+    # volumes:
+    #   - /data/ssl_certs:/var/lib/https-portal
+
+  django:
+    build: ./django-uwsgi-nginx
+    ports:
+      - '8080:8080'
