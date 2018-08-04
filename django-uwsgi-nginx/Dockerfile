@@ -37,7 +37,6 @@ RUN apt-get update && \
 	python3-pip \
 	nginx \
 	supervisor \
-  tzdata \
 	sqlite3  && \
    rm -rf /var/lib/apt/lists/*
 
