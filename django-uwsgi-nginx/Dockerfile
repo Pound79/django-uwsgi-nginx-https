@@ -12,9 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 MAINTAINER Dockerfiles
+
+
+# timezone setting
+RUN DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y tzdata
+# timezone setting
+ENV TZ=Asia/Tokyo 
+
 
 # Install required packages and remove the apt packages cache when done.
 
@@ -22,7 +30,7 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
 	git \
-  vim \
+  	vim \
 	python3 \
 	python3-dev \
 	python3-setuptools \
@@ -30,14 +38,12 @@ RUN apt-get update && \
 	nginx \
 	supervisor \
   tzdata \
-	sqlite3 && \
-	pip3 install -U pip setuptools && \
+	sqlite3  && \
    rm -rf /var/lib/apt/lists/*
 
+RUN pip install --upgrade pip && \
+	pip3 install -U pip setuptools
 
-# timezone setting
-#RUN apt-get install tzdata
-ENV TZ=Asia/Tokyo
 
 # encode setting
 # set the locale
