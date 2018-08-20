@@ -40,8 +40,8 @@ RUN apt-get update && \
 	sqlite3  && \
    rm -rf /var/lib/apt/lists/*
 
-RUN pip install --upgrade pip && \
-	pip3 install -U pip setuptools
+RUN pip3 install --upgrade pip
+RUN pip3 install -U pip setuptools
 
 
 # encode setting
